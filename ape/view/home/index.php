@@ -44,13 +44,33 @@ MLS;
             // This is the JWT of all the real data we want.
             // We'll have to get a decoder for JWT's to get
             // at all the actual data.
-            var_dump($token->getValues());
             $jwt = $token->getValues()['id_token'];
             $jwt_arr = explode(".", $jwt);
             $alg = base64_decode($jwt_arr[0]);
             $decoded = JWT::decode($jwt, $key, array('RS256'));
-            var_export($decoded);
-            
+            $email = $decoded['email'];
+
+
+            //Could simplify this with the one line if's  or just throw it all one one line but two options for now
+            if($email.contains("eagles")) {
+                $userInfo["userType"] = "Student"; 
+                $_SESSION["UserType"] = "Student";
+            }
+            else{
+                $userInfo["userType"] = "Teacher"; 
+                $_SESSION["UserType"] = "Teacher";
+            }
+            // removed sessionID's and UserID's because they arent available through google because its school specific
+            // saving current users stuff so its available globally to the rest of the page
+            $_SESSION["FirstName"] = $decoded['given_name'];
+            $_SESSION["LastName"] = $decoded['family_name'];
+            $_SESSION["Email"] = $decoded['email'];
+
+            //Alternatively it is going to be in the user info stuff until a decision is made about this
+            $userInfo = array("userId" => '2223',  
+                            "userFname" => $decoded['given_name'],
+                            "userLname" => $decoded['family_name'],
+                            "userEmail" => $decoded['email'] );      
         } catch (Exception $e) {
             exit('Something went wrong: ' . $e->getMessage());
         }

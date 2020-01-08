@@ -13,6 +13,12 @@ $cas_server_ca_cert_path = 'comodo_combo.pem';
 $cas_real_hosts = array('it-adfs01.eastern.ewu.edu',
                         'it-casauth01.eastern.ewu.edu');
 
+
+
+
+// This is Where it forces us to use the SSO to login 
+
+
 phpCAS::client(SAML_VERSION_1_1,'login.ewu.edu',443,'/cas',false);
 phpCAS::setCasServerCACert($cas_server_ca_cert_path);
 phpCAS::handleLogoutRequests(true, $cas_real_hosts);
@@ -21,10 +27,16 @@ phpCAS::forceAuthentication();
 session_start();
 
 $_SESSION['loggedIn'] = true;
+
+
+
 //get all attributes from returned object.
 //Array includes: "UserType", "Email", "FirstName", "Ewuid", "LastName"
 $userAttr = phpCAS::getAttributes();
 $_SESSION['ewuid'] = $userAttr["Ewuid"];
+
+
+
 
 //$_SESSION["phpCAS"]["attributes"]["UserType"] = "Admin";
 //echo $_SESSION['ewuid'];

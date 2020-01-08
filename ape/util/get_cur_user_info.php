@@ -42,11 +42,11 @@
             if(isset($_SESSION['ewuid']))
             {
                 $userInfo = array('userId' => $_SESSION['ewuid'], 
-                'userType' => $_SESSION["phpCAS"]["attributes"]["UserType"], 
+                'userType' => $_SESSION["UserType"], 
                 'userSession' => session_id(),
-                'userFname' => $_SESSION["phpCAS"]["attributes"]["FirstName"],
-                'userLname' => $_SESSION["phpCAS"]["attributes"]["LastName"],
-                'userEmail' => $_SESSION["phpCAS"]["attributes"]["Email"] );
+                'userFname' => $_SESSION["FirstName"],
+                'userLname' => $_SESSION["LastName"],
+                'userEmail' => $_SESSION"Email"] );
             }
 
         }
