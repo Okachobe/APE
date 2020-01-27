@@ -18,7 +18,7 @@
 		$database="ape_database";
          */
 		$server="localhost";
-		$user="user";
+		$user="ape_user";
 		$pass="password";
 		$database="ape_database";
 
